@@ -1,0 +1,27 @@
+<h1>Users</h1>
+
+<%= paginate @users %>
+<table>
+  <tr>
+    <td>Name</td>
+    <% if PermissionChecker.new(current_user).can?(:view_user_emails) %>
+    <td>Email</td>
+    <% end %>
+    <% if PermissionChecker.new(current_user).can?(:delete_user) %>
+    <td>Actions</td>
+    <% end %>
+  </tr>
+  <% users.each do |user| %>
+  <tr>
+    <td><%= user.name %></td>
+    <% if PermissionChecker.new(current_user).can?(:view_user_emails) %>
+    <td><%= user.email %></td>
+    <% end %>
+    <% if PermissionChecker.new(current_user).can?(:delete_user) %>
+    <td><% link_to 'Reset message', path_for(action: :destroy, @user.id), method: :delete, confirm: 'Are you sure?' %></td>
+    <% end %>
+  </tr>
+  <% end %>
+
+</table>
+<%= paginate @users %>
