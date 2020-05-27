@@ -14,7 +14,7 @@ class PermissionChecker
   end
 
   def can?(permission)
-    all_permissions.include? permission
+    @user && all_permissions.include? permission
   end
 end
 
